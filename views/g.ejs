@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- header -->
+  <%- include('layouts/head'); -%>
+  <body>
+    <!-- Navigation-->
+    <%- include('layouts/navbar'); -%>
+    <!-- Page Header-->
+    <header
+      class="masthead"
+      style="background-image: url('assets/img/hero.jpg')"
+    >
+      <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+          <div class="col-md-10 col-lg-8 col-xl-7">
+            <div class="post-heading">
+              <h1>G license</h1>
+              <h2 class="subheading">
+                Problems look mighty small from 150 miles up
+              </h2>
+              <span class="meta">
+                Posted by
+                <a href="#!">Start Bootstrap</a>
+                on August 24, 2022
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- Post Content-->
+    <article class="mb-4">
+      <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+          <div class="col-md-10 col-lg-8 col-xl-7">
+            
+            <h2 class="section-heading">What is a G licence?  </h2>
+            <p>
+              A G license is a full driver's license in Canada, which allows individuals to drive any type of vehicle without any restrictions. In order to obtain a G license, individuals must have held a G2 license for at least 12 months without any serious violations, and passed a final road test. Once you have a G license, you will have the freedom to drive anywhere, at any time, and with as many passengers as the vehicle can safely seat. It's important to note that, even with a G license, drivers are still required to follow all traffic laws and regulations to ensure the safety of themselves and other road users.
+            </p>
+            
+            <a href="#!"
+              ><img
+                class="img-fluid"
+                src="assets/img/ontario-drivers-licence.jpg"
+                alt="..."
+            /></a>
+            <span class="caption text-muted"
+              >A sample for a Ontario G license</span
+            >
+            
+            <p>
+              Placeholder text by
+              <a href="http://spaceipsum.com/">Space Ipsum</a>
+              &middot; Images by
+              <a href="https://www.flickr.com/photos/nasacommons/"
+                >NASA on The Commons</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </article>
+    <!-- Main Content-->
+    <main class="mb-4">
+      <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+          <div class="col-md-10 col-lg-8 col-xl-7">
+            <p>
+              Enter licese number to retrieve data from DB
+            </p>
+            <div class="my-5">
+              <!-- * * * * * * * * * * * * * * *-->
+              <!-- * * SB Forms Contact Form * *-->
+              <!-- * * * * * * * * * * * * * * *-->
+              <!-- This form is pre-integrated with SB Forms.-->
+              <!-- To make this form functional, sign up at-->
+              <!-- https://startbootstrap.com/solution/contact-forms-->
+
+              <!-- First Name ▪ Last Name ▪ License Number – must be 8 characters (alpha numeric) ▪ Age – Integer ▪ DOB – Date ▪ Car details – an object field • ie make, • model, • year, • plat number
+▪ Submit button – submit reques -->
+              <!-- to get an API token!-->
+              <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+                
+                <div class="form-floating">
+                  <input
+                    class="form-control"
+                    id="License_Number"
+                    type="text"
+                    placeholder="Enter your License Number..."
+                    data-sb-validations="required"
+                  />
+                  <label for="License_Number">License Number</label>
+                  <div
+                    class="invalid-feedback"
+                    data-sb-feedback="name:required"
+                  >
+                    A name is required.
+                  </div>
+                </div>
+                
+                  <div
+                    class="invalid-feedback"
+                    data-sb-feedback="message:required"
+                  >
+                    A message is required.
+                  </div>
+                </div>
+                <br />
+                <!-- Submit success message-->
+                <!---->
+                <!-- This is what your users will see when the form-->
+                <!-- has successfully submitted-->
+                <div class="d-none" id="submitSuccessMessage">
+                  <div class="text-center mb-3">
+                    <div class="fw-bolder">Form submission successful!</div>
+                    To activate this form, sign up at
+                    <br />
+                    <a href="https://startbootstrap.com/solution/contact-forms"
+                      >https://startbootstrap.com/solution/contact-forms</a
+                    >
+                  </div>
+                </div>
+                <!-- Submit error message-->
+                <!---->
+                <!-- This is what your users will see when there is-->
+                <!-- an error submitting the form-->
+                <div class="d-none" id="submitErrorMessage">
+                  <div class="text-center text-danger mb-3">
+                    Error sending message!
+                  </div>
+                </div>
+                <!-- Submit Button-->
+                <button
+                  class="btn btn-primary text-uppercase disabled"
+                  id="submitButton"
+                  type="submit"
+                >
+                  Send
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- Footer-->
+    <%- include('layouts/footer'); -%> <%- include('layouts/scripts'); -%>
+  </body>
+</html>

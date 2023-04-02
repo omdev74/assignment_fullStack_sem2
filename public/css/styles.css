@@ -75,6 +75,13 @@
     scroll-behavior: smooth;
   }
 }
+#License_error{
+  display: none;
+}
+#License_error{
+  color: red;
+}
+
 
 body {
   margin: 0;

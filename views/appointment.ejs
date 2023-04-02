@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('layouts/head'); -%>
+  <body>
+    <!-- Navigation-->
+    <%- include('layouts/navbar'); -%>
+    <!-- Page Header-->
+    <header
+      class="masthead"
+      style="background-image: url('assets/img/home-bg.jpg')"
+    >
+      <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+          <div class="col-md-10 col-lg-8 col-xl-7">
+            <div class="site-heading">
+              <h1>Appointment</h1>
+              <span class="subheading">Book an appointment slot for the Driver</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- Main Content-->
+    <form
+      action="/appointment/store"
+      method="POST"
+      id="form_container"
+      class="g2_form"
+    >
+
+      <div class="form-car-details">
+        <div class="form-floating">
+          <input class="form-control" id="AppointmentDate" name="date" type="date"/>
+          <label for="date">Date</label>
+        </div>
+
+        <div class="form">
+          <label for="timeslotOption" class="form-label">Time Slot</label>
+        <%# const arrayOfAvailableTimes = appointment.map((e)=>{ %>
+        <%# return e.time; }) %>
+        
+          <select id="timeslotOption" name="time" class="form-control">
+            <option value="09:00">09:00</option>
+            <option value="10:00">10:00</option>
+            <option value="11:00">11:00</option>
+            <option value="12:00">12:00</option>
+            <option value="13:00">13:00</option>
+            <option value="14:00">14:00</option>
+            <option value="15:00">15:00</option>
+            <option value="16:00">16:00</option>
+            <option value="17:00"<%# arrayOfAvailableTimes.includes('09:00') ? disabled: %>>17:00</option>
+          </select>
+
+        </div>
+      </div>
+      <br />
+
+      <!-- Submit Button-->
+      <div id="submit-button">
+        <button
+          class="btn btn-primary text-uppercase"
+          id="submitButton"
+          type="submit"
+        >
+          Save
+        </button>
+      </div>
+    </form>
+    <!-- Footer-->
+    <%- include('layouts/footer'); -%> <%- include('layouts/scripts'); -%>
+  </body>
+
+</html>

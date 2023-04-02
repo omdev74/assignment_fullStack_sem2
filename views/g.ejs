@@ -33,12 +33,20 @@
       <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
           <div class="col-md-10 col-lg-8 col-xl-7">
-            
-            <h2 class="section-heading">What is a G licence?  </h2>
+            <h2 class="section-heading">What is a G licence?</h2>
             <p>
-              A G license is a full driver's license in Canada, which allows individuals to drive any type of vehicle without any restrictions. In order to obtain a G license, individuals must have held a G2 license for at least 12 months without any serious violations, and passed a final road test. Once you have a G license, you will have the freedom to drive anywhere, at any time, and with as many passengers as the vehicle can safely seat. It's important to note that, even with a G license, drivers are still required to follow all traffic laws and regulations to ensure the safety of themselves and other road users.
+              A G license is a full driver's license in Canada, which allows
+              individuals to drive any type of vehicle without any restrictions.
+              In order to obtain a G license, individuals must have held a G2
+              license for at least 12 months without any serious violations, and
+              passed a final road test. Once you have a G license, you will have
+              the freedom to drive anywhere, at any time, and with as many
+              passengers as the vehicle can safely seat. It's important to note
+              that, even with a G license, drivers are still required to follow
+              all traffic laws and regulations to ensure the safety of
+              themselves and other road users.
             </p>
-            
+
             <a href="#!"
               ><img
                 class="img-fluid"
@@ -48,15 +56,6 @@
             <span class="caption text-muted"
               >A sample for a Ontario G license</span
             >
-            
-            <p>
-              Placeholder text by
-              <a href="http://spaceipsum.com/">Space Ipsum</a>
-              &middot; Images by
-              <a href="https://www.flickr.com/photos/nasacommons/"
-                >NASA on The Commons</a
-              >
-            </p>
           </div>
         </div>
       </div>
@@ -66,31 +65,42 @@
       <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
           <div class="col-md-10 col-lg-8 col-xl-7">
-            <p>
-              Enter licese number to retrieve data from DB
-            </p>
-            <div class="my-5">
-              <!-- * * * * * * * * * * * * * * *-->
-              <!-- * * SB Forms Contact Form * *-->
-              <!-- * * * * * * * * * * * * * * *-->
-              <!-- This form is pre-integrated with SB Forms.-->
-              <!-- To make this form functional, sign up at-->
-              <!-- https://startbootstrap.com/solution/contact-forms-->
+          
+            <p id="License_error"></p>
 
-              <!-- First Name ▪ Last Name ▪ License Number – must be 8 characters (alpha numeric) ▪ Age – Integer ▪ DOB – Date ▪ Car details – an object field • ie make, • model, • year, • plat number
-▪ Submit button – submit reques -->
-              <!-- to get an API token!-->
-              <form id="contactForm" data-sb-form-api-token="API_TOKEN">
-                
+
+          </div>
+        </div>
+
+
+        <% if(user.License_No != "default") { %> 
+        <div
+          class="row gx-4 gx-lg-5 justify-content-center"
+          id="license_output_div"
+          
+        >
+          <div class="col-md-10 col-lg-8 col-xl-7">
+            <div class="my-5">
+              <h1>License Data</h1>
+              <form
+                id="license_output_form"
+                data-sb-form-api-token="API_TOKEN"
+                method="post"
+                action="/user/update"
+              >
+                <h3>Personal Details</h3>
                 <div class="form-floating">
                   <input
                     class="form-control"
-                    id="License_Number"
+                    id="Fname"
                     type="text"
-                    placeholder="Enter your License Number..."
+                    placeholder="Enter your name..."
                     data-sb-validations="required"
+                    name="firstname"
+                    <% %> value = <%= user.firstname %> <% %> 
+                    readonly
                   />
-                  <label for="License_Number">License Number</label>
+                  <label for="Fname">First Name</label>
                   <div
                     class="invalid-feedback"
                     data-sb-feedback="name:required"
@@ -98,50 +108,166 @@
                     A name is required.
                   </div>
                 </div>
-                
+                <div class="form-floating">
+                  <input
+                    class="form-control"
+                    id="Lname"
+                    type="text"
+                    placeholder="Enter your name..."
+                    data-sb-validations="required"
+                    name="lastname"
+                    <% %> value = <%= user.lastname %> <% %> 
+                    readonly
+                  />
+                  <label for="Lname">Last Name</label>
                   <div
                     class="invalid-feedback"
-                    data-sb-feedback="message:required"
+                    data-sb-feedback="name:required"
                   >
-                    A message is required.
+                    A name is required.
+                  </div>
+                </div>
+
+                <div class="form-floating">
+                  <input
+                    class="form-control"
+                    id="License_Number_out"
+                    type="text"
+                    placeholder="Enter your License Number..."
+                    data-sb-validations="required"
+                    name="License_No"
+                    <% %> value = <%= user.License_No %> <% %> 
+
+                    readonly
+                  />
+                  <label for="License_Number">License Number</label>
+                  <div
+                    class="invalid-feedback"
+                    data-sb-feedback="name:required"
+                  >
+                    A License Number is required.
+                  </div>
+                </div>
+                <div class="form-floating">
+                  <input
+                    class="form-control"
+                    id="Age"
+                    type="number"
+                    placeholder="Enter your Age..."
+                    data-sb-validations="required"
+                    min="18"
+                    name="Age"
+                    <% %> value = <%= user.Age %> <% %> 
+
+                    readonly
+                  />
+                  <label for="Age">Age</label>
+                  <div
+                    class="invalid-feedback"
+                    data-sb-feedback="name:required"
+                  >
+                    An Age is required.
+                  </div>
+                </div>
+
+                <br />
+                <h3>Car Details</h3>
+                <br />
+                <div class="form-floating">
+                  <input
+                    class="form-control"
+                    id="manufacturer"
+                    type="text"
+                    placeholder="Enter your License Number..."
+                    data-sb-validations="required"
+                    name="manufacturer"
+                    <% %> value = <%= user.car_details.manufacturer %> <% %> 
+
+                  />
+                  <label for="Manufacturer">Manufacturer</label>
+                  <div
+                    class="invalid-feedback"
+                    data-sb-feedback="name:required"
+                  >
+                    A Manufacturer is required.
+                  </div>
+                </div>
+
+                <div class="form-floating">
+                  <input
+                    class="form-control"
+                    id="model"
+                    type="text"
+                    placeholder="Enter your License Number..."
+                    data-sb-validations="required"
+                    name="model"
+                    <% %> value = <%= user.car_details.model %> <% %> 
+
+                  />
+                  <label for="Model">Model</label>
+                  <div
+                    class="invalid-feedback"
+                    data-sb-feedback="name:required"
+                  >
+                    A Model is required.
+                  </div>
+                </div>
+                <div class="form-floating">
+                  <input
+                    class="form-control"
+                    id="M_year"
+                    placeholder="Enter your Model..."
+                    type="number"
+                    min="1900"
+                    max="2099"
+                    step="1"
+                    value="2016"
+                    data-sb-validations="required"
+                    name="year"
+                    <% %> value = <%= user.car_details.year %> <% %> 
+
+                  />
+                  <label for="M_year">year</label>
+                  <div
+                    class="invalid-feedback"
+                    data-sb-feedback="name:required"
+                  >
+                    A year is required.
+                  </div>
+                </div>
+                <div class="form-floating">
+                  <input
+                    class="form-control"
+                    id="plate"
+                    type="text"
+                    placeholder="Enter your plate Number..."
+                    data-sb-validations="required"
+                    name="plate_no"
+                    <% %> value = <%= user.car_details.plate_no %> <% %> 
+
+                  />
+                  <label for="plate">Plate number</label>
+                  <div
+                    class="invalid-feedback"
+                    data-sb-feedback="name:required"
+                  >
+                    A Plate number is required.
                   </div>
                 </div>
                 <br />
-                <!-- Submit success message-->
-                <!---->
-                <!-- This is what your users will see when the form-->
-                <!-- has successfully submitted-->
-                <div class="d-none" id="submitSuccessMessage">
-                  <div class="text-center mb-3">
-                    <div class="fw-bolder">Form submission successful!</div>
-                    To activate this form, sign up at
-                    <br />
-                    <a href="https://startbootstrap.com/solution/contact-forms"
-                      >https://startbootstrap.com/solution/contact-forms</a
-                    >
-                  </div>
-                </div>
-                <!-- Submit error message-->
-                <!---->
-                <!-- This is what your users will see when there is-->
-                <!-- an error submitting the form-->
-                <div class="d-none" id="submitErrorMessage">
-                  <div class="text-center text-danger mb-3">
-                    Error sending message!
-                  </div>
-                </div>
-                <!-- Submit Button-->
+
                 <button
-                  class="btn btn-primary text-uppercase disabled"
-                  id="submitButton"
+                  class="btn btn-primary text-uppercase"
+                  id="updateButton"
                   type="submit"
                 >
-                  Send
+                  Update
                 </button>
               </form>
             </div>
           </div>
         </div>
+        <% } %> 
       </div>
     </main>
     <!-- Footer-->

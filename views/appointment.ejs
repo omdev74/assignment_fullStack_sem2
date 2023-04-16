@@ -14,60 +14,108 @@
           <div class="col-md-10 col-lg-8 col-xl-7">
             <div class="site-heading">
               <h1>Appointment</h1>
-              <span class="subheading">Book an appointment slot for the Driver</span>
+              <span class="subheading"
+                >Book an appointment slot for the Driver</span
+              >
             </div>
           </div>
         </div>
       </div>
     </header>
-    <!-- Main Content-->
-    <form
-      action="/appointment/store"
-      method="POST"
-      id="form_container"
-      class="g2_form"
-    >
+    <div id="appointmentFormContainer">
+      <form
+        action="/appointment/createslot"
+        method="POST"
+        id="appointmentSlotsCreatingForm"
+      >
+        <label for="dateInput">Enter a date:</label>
 
-      <div class="form-car-details">
-        <div class="form-floating">
-          <input class="form-control" id="AppointmentDate" name="date" type="date"/>
-          <label for="date">Date</label>
+        <input type="date" id="dateInput" name="date" class="form-control" />
+        <label for="timeslotOption" class="form-label">Time Slot</label>
+        <select id="timeSlotSelect" class="form-control" name="time">
+          <option value="">Select a time slot</option>
+        </select>
+        <br />
+        <!-- Submit Button-->
+        <div id="submit-button">
+          <button
+            class="btn btn-primary text-uppercase"
+            id="submitButton"
+            type="submit"
+          >
+            Save
+          </button>
         </div>
+      </form>
 
-        <div class="form">
-          <label for="timeslotOption" class="form-label">Time Slot</label>
-        <%# const arrayOfAvailableTimes = appointment.map((e)=>{ %>
-        <%# return e.time; }) %>
-        
-          <select id="timeslotOption" name="time" class="form-control">
-            <option value="09:00">09:00</option>
-            <option value="10:00">10:00</option>
-            <option value="11:00">11:00</option>
-            <option value="12:00">12:00</option>
-            <option value="13:00">13:00</option>
-            <option value="14:00">14:00</option>
-            <option value="15:00">15:00</option>
-            <option value="16:00">16:00</option>
-            <option value="17:00"<%# arrayOfAvailableTimes.includes('09:00') ? disabled: %>>17:00</option>
-          </select>
+      <script>
 
-        </div>
-      </div>
-      <br />
+        //setting the minimum date to current
+        const dateInput = document.querySelector("#dateInput");
+                const currentDate = new Date().toISOString().split("T")[0];
+                dateInput.min = currentDate;
+                
+        const dateInput = document.querySelector("#dateInput");
+        const timeSlotSelect = document.querySelector("#timeSlotSelect");
+        const allTimeSlots = [
+          "09:00",
+          "10:00",
+          "11:00",
+          "12:00",
+          "13:00",
+          "14:00",
+          "15:00",
+          "16:00",
+        ];
 
-      <!-- Submit Button-->
-      <div id="submit-button">
-        <button
-          class="btn btn-primary text-uppercase"
-          id="submitButton"
-          type="submit"
-        >
-          Save
-        </button>
-      </div>
-    </form>
+        dateInput.addEventListener("change", (event) => {
+          const date = dateInput.value;
+          // Remove all options except the first one
+          const options = timeSlotSelect.querySelectorAll("option");
+          options.forEach((option) => {
+            if (option.value !== "") {
+              option.remove();
+            }
+          });
+
+          fetch(`/apointments/withdate?date=${date}`)
+            .then((response) => response.json())
+            .then((data) => {
+              console.log(date);
+              console.log(data);
+
+              const usedTimeSlots = Object.values(data).map(
+                (item) => item.time
+              );
+              const availableTimeSlots = allTimeSlots.filter(
+                (slot) => !usedTimeSlots.includes(slot)
+              );
+              allTimeSlots.forEach((timeSlot) => {
+                const option = document.createElement("option");
+                option.value = timeSlot;
+                option.text = timeSlot;
+                if (!availableTimeSlots.includes(timeSlot)) {
+                  option.disabled = true;
+                }
+                timeSlotSelect.appendChild(option);
+              });
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        });
+
+        const form = document.querySelector("#appointmentSlotsCreatingForm");
+        // form.addEventListener("submit", (event) => {
+
+        //   const date = dateInput.value;
+        //   const time = timeSlotSelect.value;
+        //   console.log(date, time);
+        // });
+      </script>
+    </div>
+
     <!-- Footer-->
     <%- include('layouts/footer'); -%> <%- include('layouts/scripts'); -%>
   </body>
-
 </html>

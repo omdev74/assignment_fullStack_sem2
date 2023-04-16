@@ -225,9 +225,98 @@
                 </button>
               </form>
             </div>
+            <h1>Book your appointment</h1>
+            <div id="appointmentFormContainer">
+              <form
+                action="/bookAppointment"
+                method="POST"
+                id="appointmentSlotsCreatingForm"
+              >
+                <label for="dateInput">Enter a date:</label>
+        
+                <input type="date" id="dateInput" name="date" class="form-control" />
+                <label for="timeslotOption" class="form-label">Time Slot</label>
+                <select id="timeSlotSelect" class="form-control" name="time">
+                  <option value="">Select a time slot</option>
+                </select>
+                <br />
+                <!-- Submit Button-->
+                <div id="submit-button">
+                  <button
+                    class="btn btn-primary text-uppercase"
+                    id="submitButton"
+                    type="submit"
+                  >
+                    Book an appointment
+                  </button>
+                </div>
+              </form>
+        
+              <script>
+
+                //setting the minimum date to current
+                const dateInput = document.querySelector("#dateInput");
+                const currentDate = new Date().toISOString().split("T")[0];
+                dateInput.min = currentDate;
+                
+                const timeSlotSelect = document.querySelector("#timeSlotSelect");
+                const allTimeSlots = [
+                  "09:00",
+                  "10:00",
+                  "11:00",
+                  "12:00",
+                  "13:00",
+                  "14:00",
+                  "15:00",
+                  "16:00",
+                ];
+        
+                dateInput.addEventListener("change", (event) => {
+                  const date = dateInput.value;
+                  // Remove all options except the first one
+                  const options = timeSlotSelect.querySelectorAll("option");
+                  options.forEach((option) => {
+                    if (option.value !== "") {
+                      option.remove();
+                    }
+                  });
+        
+                  fetch(`/apointments/withdate?date=${date}`)
+                    .then((response) => response.json())
+                    .then((data) => {
+                      console.log(date);
+                      console.log(data);
+        
+                      const availableTimeSlots = Object.values(data)
+                      .filter((item) => item.isTimeSlotAvailable)
+                      .map((item) => item.time);
+
+                      console.log(availableTimeSlots);
+
+                      availableTimeSlots.forEach((timeSlot) => {
+                      const option = document.createElement("option");
+                      option.value = timeSlot;
+                      option.text = timeSlot;
+                      timeSlotSelect.appendChild(option);
+    });
+                    })
+                    .catch((error) => {
+                      console.error(error);
+                    });
+                });
+        
+                const form = document.querySelector("#appointmentSlotsCreatingForm");
+                
+              </script>
+            </div>
+            
+
           </div>
         </div>
+        
       </div>
+
+      
     </main>
     <!-- Footer-->
     <%- include('layouts/footer'); -%> <%- include('layouts/scripts'); -%>

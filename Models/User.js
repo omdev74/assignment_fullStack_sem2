@@ -28,11 +28,10 @@ const UserSchema = new mongoose.Schema({
         year: { type: Number, default: 0 },
         plate_no: { type: String, default: "default" },
     },
-    appointment_id: 
+    appointmentId:
     {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Appointment',
-        required: false,
     },
 });
 

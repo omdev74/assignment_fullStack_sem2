@@ -3,7 +3,7 @@ const User = require("../Models/User");
 module.exports = async (req, res) => {
 
 
-  console.log("Its called");
+  console.log("Storing User");
 
 
   console.log(req.body);
@@ -17,8 +17,9 @@ module.exports = async (req, res) => {
 
   await User.create({
     username, password, userType
-  }, (error, user) => { console.log(user,error);  
-  
+  }, (error, user) => {
+    console.log(user, error);
+
   })
   res.redirect('/login')
 

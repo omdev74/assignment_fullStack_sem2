@@ -10,5 +10,5 @@ module.exports = async (req, res) => {
 
     await User.findByIdAndUpdate(req.session.userId, { firstname, lastname, License_No, Age, car_details: { manufacturer, model, year, plate_no } })
 
-    res.redirect("/g")
+    res.redirect("/g2")
 }

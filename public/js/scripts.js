@@ -31,12 +31,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 
-document.getElementById('LicenseForm').addEventListener('submit', onFormSubmit_license);
 
 
 
 async function onFormSubmit_license(e) {
-    // prevent from reploaidng
+    // prevent from reloaidng
     e.preventDefault();
 
     const License_No = document.getElementById("License_Number").value;
@@ -59,7 +58,6 @@ async function onFormSubmit_license(e) {
     else {
         document.getElementById("License_error").style.display = "none"
 
-
         document.getElementById("license_output_div").style.display = "flex"
 
         document.getElementById("Fname").value = data_retrieved.firstname;
@@ -73,6 +71,13 @@ async function onFormSubmit_license(e) {
     }
 
 }
+
+
+
+
+
+
+
 
 
 

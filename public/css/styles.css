@@ -82,6 +82,19 @@
   color: red;
 }
 
+#appointmentFormContainer{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+#appointmentSlotsCreatingForm,#appointmentBookingForm{
+
+  padding: 3vw;
+  width: 50%;
+  
+
+}
+
 
 body {
   margin: 0;

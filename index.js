@@ -33,9 +33,11 @@ const g2Controller = require('./controllers/g2');
 const signupPageController = require('./controllers/signup');
 const logoutController = require('./controllers/logout')
 
-const createNewUserController = require("./controllers/createNewUser")
+
 const storeUserController = require("./controllers/storeUser")
 const appointmentContoller = require("./controllers/appointment")
+const createAppointmentTimeSlotsController = require("./controllers/createTimeSlots")
+const bookAppointmentController = require("./controllers/bookAppointment")
 
 
 
@@ -76,8 +78,9 @@ mongoose.connect(process.env.MONGO_URL, {
   useUnifiedTopology: true,
 })
 
-// Modules MongoDb
+// Modles MongoDb
 const User = require("./Models/User");
+const Appointment = require("./Models/Appointment");
 
 
 // CRUD ROUTES
@@ -87,6 +90,8 @@ app.get('/', homeController);
 app.get('/g', authMiddleware, authorizeOnUserTypeMiddleware, gController);
 app.get('/g2', authMiddleware, authorizeOnUserTypeMiddleware, g2Controller);
 app.get('/appointment', authMiddleware, authorizeOnUserTypeMiddleware, appointmentContoller)
+
+
 app.get("/dashboard", dashboardController);
 app.get("/login", redirectIfAuthenticatedMiddleware, loginPageController);
 app.get("/signup", redirectIfAuthenticatedMiddleware, signupPageController);
@@ -101,13 +106,28 @@ app.get("/database", async (req, res) => {
 
 });
 
+
+app.get("/apointments/withdate", async (req, res) => {
+  const selectedDate = req.query.date;
+  console.log(`with Date called ${selectedDate}`);
+  const allAppointments = await Appointment.find({ date: selectedDate })
+
+
+  res.json({ ...allAppointments })
+
+})
+
 // post routes
 
-app.post("/user/createNewUser", createNewUserController);
+
 app.post("/user/store", storeUserController)
 app.post("/user/update", updateUserController)
 app.post("/user/update/g2", updateUserG2_Controller)
 app.post('/userLogin', loginValidationMiddleware, userloginLogicController);
+app.post("/appointment/createslot", authMiddleware, authorizeOnUserTypeMiddleware, createAppointmentTimeSlotsController);
+app.post('/bookAppointment', authMiddleware, authorizeOnUserTypeMiddleware, bookAppointmentController)
+
+
 
 
 

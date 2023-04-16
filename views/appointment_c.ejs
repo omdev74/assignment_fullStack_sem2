@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('layouts/head'); -%>
+  <body>
+    <!-- Navigation-->
+    <%- include('layouts/navbar'); -%>
+    <!-- Page Header-->
+    <header
+      class="masthead"
+      style="background-image: url('assets/img/home-bg.jpg')"
+    >
+      <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+          <div class="col-md-10 col-lg-8 col-xl-7">
+            <div class="site-heading">
+              <h1>Appointment</h1>
+              <span class="subheading"
+                >Book an appointment slot for the Driver</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div id="appointmentFormContainer">
+      
+      <script>
+        const appointments = <%= JSON.stringify(allAppointmentsMap) %>;
+        console.log(appointments);
+      </script>
+      <form
+      action="/appointment/createslot"
+      method="POST"
+      id="appointmentSlotsCreatingForm"
+    >
+      <div class="form-car-details">
+        <div class="form-floating">
+          <input
+            class="form-control"
+            id="AppointmentDate"
+            name="date"
+            type="date"
+          />
+          <label for="date">Date</label>
+        </div>
+
+        <div class="form">
+          <label for="timeslotOption" class="form-label">Time Slot</label>
+          
+        
+  
+    
+          <select id="timeslotOption" name="time" class="form-control">
+            <% const timeslots = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00']; %>
+          <% timeslots.map((timeslot) => {
+              const isAlreadyCreated = allAppointmentsMap.some((appointment) => appointment.time === timeslot);
+              const isDisabled = isAlreadyCreated ? 'disabled' : '';
+          %>
+          <option value="<%= timeslot %>" <%= isDisabled %>><%= timeslot %></option>
+        <% }); %>
+          </select>
+        </div>
+      </div>
+      <br />
+      <!-- Submit Button-->
+      <div id="submit-button">
+        <button
+          class="btn btn-primary text-uppercase"
+          id="submitButton"
+          type="submit"
+        >
+          Save
+        </button>
+      </div>
+    </form>
+
+    <h1>Appointments Time Slots in Database</h1>
+      <ul>
+        <% for (let i = 0; i < allAppointmentsMap.length; i++) { %>
+        <li>
+          <%= allAppointmentsMap[i].time %> - <%=
+          allAppointmentsMap[i].date.toLocaleDateString() %>
+        </li>
+        <% } %>
+      </ul>
+
+      
+    </div>
+
+    <!-- Footer-->
+    <%- include('layouts/footer'); -%> <%- include('layouts/scripts'); -%>
+    
+  </body>
+</html>
